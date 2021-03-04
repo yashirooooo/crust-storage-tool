@@ -12,16 +12,18 @@ module.exports = {
             const members = _.map(ownerMembers.data.data[0].member, 'nodeId');
             for (const member of members) {
                 const memberOrder = JSON.parse(await httpGetMembersOrders(member));
-                const orderCids = _.map(memberOrder.data.files, 'cid');
+                const orderCids = _.map(memberOrder.data.files, e => {
+                    return {
+                        cid: e.cid,
+                        expiredTime: e.expiredTime
+                    }
+                });
                 fileOrders.push(...orderCids);
             }
         }
 
         const uniqOrders = _.unionWith(fileOrders, _.isEqual);
 
-        // TODO: Filter settled orders
-        console.log(`The order will be settled:`, JSON.stringify(uniqOrders));
-        
         // 1. Judge legality of the seeds
         const seedsVec = seeds.split(' ');
         if (seedsVec.length !== 12) {
@@ -36,8 +38,15 @@ module.exports = {
         });
 
         await chain.isReadyOrError;
+        const currentBn = await chain.query.system.number();
+        console.log(`CurrentBn:`, currentBn.toNumber());
+        const calOrders = _.map(_.filter(uniqOrders, e => {
+            return e.expiredTime < currentBn.toNumber()
+        }), 'cid');
 
-        const txs = _.map(uniqOrders, e => chain.tx.market.claimReward(e));
+        console.log(`The order will be settled:`, JSON.stringify(calOrders));
+        
+        const txs = _.map(calOrders, e => chain.tx.market.claimReward(e));
 
         // TODO: Merchants whose reward pool is full stop clearing orders
         const batchTx = chain.tx.utility.batch(txs);
