@@ -20,7 +20,7 @@ module.exports = {
         const uniqOrders = _.unionWith(fileOrders, _.isEqual);
 
         // TODO: Filter settled orders
-        console.log(`The order will be settled:`, uniqOrders)
+        console.log(`The order will be settled:`, JSON.stringify(uniqOrders));
         
         // 1. Judge legality of the seeds
         const seedsVec = seeds.split(' ');
