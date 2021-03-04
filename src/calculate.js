@@ -45,6 +45,11 @@ module.exports = {
         }), 'cid');
 
         console.log(`The order will be settled:`, JSON.stringify(calOrders));
+        if (calOrders.length == 0) {
+            console.log(`Owner ${owner} has no billable orders`);
+            chain.disconnect();
+            return
+        }
         
         const txs = _.map(calOrders, e => chain.tx.market.claimReward(e));
 
