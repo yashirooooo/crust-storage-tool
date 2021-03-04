@@ -10,10 +10,6 @@ function withHelper(arg, err, handler) {
     }
 }
 
-function sleep(ms){
-    return new Promise((resolve)=>setTimeout(resolve,ms));
-}
-
 /**
  * Send tx to Crust Network
  * @param tx substrate-style tx
@@ -56,7 +52,7 @@ async function sendTx(tx, seeds) {
         }).catch(e => {
             reject(e);
         });
-    });
+    }).catch(console.error);
 }
 
 /**
@@ -78,9 +74,9 @@ let options = {
   }
 };
 
-async function httpGetOwnerMembers(owner, callback) {
+async function httpGetOwnerMembers(owner) {
     options.url = ownerListAddr + owner;
-    return new Promise((resolve, reject)=> {
+    return new Promise((resolve, _)=> {
         request(options.url, options, function (error, response) {
             if (error) throw new Error(error);
             resolve(response.body);
@@ -90,8 +86,7 @@ async function httpGetOwnerMembers(owner, callback) {
 
 function httpGetMembersOrders(member) {
     options.url = memberOrdersAddr + member;
-    console.log('options.url', options.url)
-    return new Promise((resolve, reject)=> {
+    return new Promise((resolve, _)=> {
         request(options.url, options, function (error, response) {
             if (error) throw new Error(error);
             resolve(response.body);

@@ -18,6 +18,9 @@ module.exports = {
         }
 
         const uniqOrders = _.unionWith(fileOrders, _.isEqual);
+
+        // TODO: Filter settled orders
+        console.log(`The order will be settled:`, uniqOrders)
         
         // 1. Judge legality of the seeds
         const seedsVec = seeds.split(' ');
@@ -26,7 +29,7 @@ module.exports = {
             return;
         }   
         
-        // 2. get chain api connection
+        // 2. Get chain api connection
         let chain = new ApiPromise({
             provider: new WsProvider(chainAddr),
             typesBundle: typesBundleForPolkadot
@@ -36,6 +39,7 @@ module.exports = {
 
         const txs = _.map(uniqOrders, e => chain.tx.market.claimReward(e));
 
+        // TODO: Merchants whose reward pool is full stop clearing orders
         const batchTx = chain.tx.utility.batch(txs);
 
         const res = await sendTx(batchTx, seeds);

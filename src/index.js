@@ -7,7 +7,7 @@ const { withHelper } = require('./util');
 program
   .version('0.0.1')
   .description(
-    'The Crust Storage Tool command-line interface (CST CLI) is a set of commands used to access Crust Network storage resources'
+    'The Crust Storage Tool command-line interface (CST CLI) is a set of commands used to to help settle orders'
   )
 
 program
