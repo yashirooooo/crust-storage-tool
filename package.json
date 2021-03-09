@@ -4,7 +4,7 @@
   "description": "The Crust Storage Tool command-line interface (CST CLI) is a set of commands used to to help settle orders",
   "repository": "https://github.com/yuhui1208/crust-storage-tool.git",
   "author": "yuhui <1161569428@qq.com>",
-  "license": "GPL-3.0",
+  "license": "Apache License 2.0",
   "main": "./src/index.js",
   "bin": {
     "cst": "./src/index.js"
