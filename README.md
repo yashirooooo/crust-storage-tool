@@ -9,6 +9,7 @@ npm i -g crust-storage-tool
 ```
 
 ## Usage
+Please make sure your node version is the latest stable version
 
 ### Cal
 

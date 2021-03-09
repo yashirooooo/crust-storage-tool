@@ -1,6 +1,6 @@
 {
   "name": "crust-storage-tool",
-  "version": "0.0.1-3",
+  "version": "0.0.1-6",
   "description": "The Crust Storage Tool command-line interface (CST CLI) is a set of commands used to to help settle orders",
   "repository": "https://github.com/yuhui1208/crust-storage-tool.git",
   "author": "yuhui <1161569428@qq.com>",
@@ -15,13 +15,11 @@
     "polkadot"
   ],
   "dependencies": {
-    "@crustio/type-definitions": "^0.0.3",
+    "@crustio/type-definitions": "^0.0.4",
     "@polkadot/api": "^3.11.1",
     "chalk": "^4.1.0",
     "commander": "^7.1.0",
     "figlet": "^1.5.0",
-    "inquirer": "^8.0.0",
-    "ipfs-http-client": "^49.0.2",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
     "request": "^2.88.2"
